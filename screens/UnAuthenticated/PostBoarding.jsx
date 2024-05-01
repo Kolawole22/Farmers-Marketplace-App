@@ -21,7 +21,7 @@ const PostBoarding = ({ navigation }) => {
           <Image source={WelcomeFlower} style={{ width: 107, height: 107 }} />
           <Text style={a.welcome}>Welcome to</Text>
           <Text style={a.title}>
-            My <Text style={a.subtitle}>Home</Text>town Farm market
+            My <Text style={a.subtitle}>Farmers Marketplace</Text>
           </Text>
           <Text style={a.parag}>
             You are at the right place, choose the best category that describes
@@ -129,7 +129,7 @@ const a = StyleSheet.create({
   },
   title: {
     fontFamily: "space500",
-    fontSize: 18,
+    fontSize: 24,
     color: COLORS.white,
   },
   subtitle: {

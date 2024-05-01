@@ -1,0 +1,42 @@
+{
+  "cli": {
+    "version": ">= 7.8.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_BACKEND_URL": "https://urchin-app-a479b.ondigitalocean.app",
+        "EXPO_PUBLIC_GOOGLE_MAP_API_KEY": "AIzaSyANCbsggZC6g1xw32-x4jRCb4RmCG3n5M0"
+      }
+    },
+    // "preview": {
+    //   "distribution": "internal"
+    // },
+    "preview": { 
+      "env": {
+        "EXPO_PUBLIC_BACKEND_URL": "https://urchin-app-a479b.ondigitalocean.app",
+        "EXPO_PUBLIC_GOOGLE_MAP_API_KEY": "AIzaSyANCbsggZC6g1xw32-x4jRCb4RmCG3n5M0"
+      },
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "simulator": true  // Build for iOS Simulator
+      }
+      
+    },
+
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_BACKEND_URL": "https://urchin-app-a479b.ondigitalocean.app",
+        "EXPO_PUBLIC_GOOGLE_MAP_API_KEY": "AIzaSyANCbsggZC6g1xw32-x4jRCb4RmCG3n5M0"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+    }
+  }
+}

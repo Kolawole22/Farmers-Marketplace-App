@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Hometown Market",
+    "name": "Farmers Marketplace",
     "slug": "NewFarmApp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -20,7 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.kelliebrighty.NewFarmApp",
+      "package": "com.farmersmarketplace.app",
       "permissions": [
         "CAMERA",
         "READ_EXTERNAL_STORAGE",
@@ -30,16 +32,16 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "c64fd831-8e17-4e14-8950-479def7e21f7"
-      }
-    },
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
       "url": "https://u.expo.dev/c64fd831-8e17-4e14-8950-479def7e21f7"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e8993465-2b66-4411-bd2e-84758d400f14"
+      }
     }
   }
 }

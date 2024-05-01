@@ -303,7 +303,7 @@ export default Navigation = () => {
   return (
     <NavigationContainer>
       {isNewUser ? (
-        <OnboardingScreens />
+        <UnAuthenticatedScreens />
       ) : isAuthenticated ? (
         <>
           {userType === "Farmer" ? (
