@@ -4,7 +4,7 @@ import { COLORS, SHADOWS } from "./constants";
 import { Edit, RotateLeft } from "iconsax-react-native";
 
 const ProductCard = ({ data, navigation, id }) => {
-  console.log("date images:::", data.images[0]?.image);
+  console.log("date images:::", data?.images[0]?.image);
   return (
     <View
       style={{
@@ -36,7 +36,7 @@ const ProductCard = ({ data, navigation, id }) => {
           </Text>
         ) : (
           <Image
-            source={{ uri: data.images[0]?.image }}
+            source={{ uri: data?.images[0]?.image }}
             style={{
               width: "100%",
               height: "100%",

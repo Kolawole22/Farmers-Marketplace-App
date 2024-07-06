@@ -18,6 +18,7 @@ import { GlobalContext } from "../../context/context.service";
 import axios from "axios";
 import { BACKEND_URL } from "../../config.service";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const SigninBuyer = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
@@ -65,6 +66,7 @@ const SigninBuyer = ({ navigation }) => {
           saveUserData(res.data.user);
           saveUserToken(res.data.token);
           setIsAuhtenticated(true);
+          setIsNewUser(false);
           AsyncStorage.setItem("user_type", "Buyer");
         })
         .catch((err) => {
@@ -134,6 +136,7 @@ const SigninBuyer = ({ navigation }) => {
                   label="Password"
                   value={password}
                   onChangeText={(text) => setPassword(text)}
+                  autoCapitalize={"none"}
                 />
               </View>
 
@@ -198,6 +201,12 @@ const SigninBuyer = ({ navigation }) => {
                   </Text>
                 </Text>
               </View>
+              <TouchableOpacity
+                style={styles.signInOptions}
+                onPress={() => navigation.push("ResetPassword")}
+              >
+                <Text style={{ color: COLORS.primary1 }}>Forgot Password?</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>

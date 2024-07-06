@@ -30,6 +30,9 @@ import { inputDealerProfileLinks } from "../../../components/constants/slides";
 import Prompt from "../../../components/Prompt";
 import { GlobalContext } from "../../../context/context.service";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as ImagePicker from "expo-image-picker";
+import { BACKEND_URL } from "../../../config.service";
+import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
 
@@ -41,6 +44,8 @@ const Profile = ({ navigation }) => {
     setModalTitle,
     setModalSubtitle,
     setModalAction,
+    toastValues,
+    setToastValues,
   } = useContext(GlobalContext);
   const [userData, setUserData] = useState();
 
@@ -52,7 +57,63 @@ const Profile = ({ navigation }) => {
         setUserData(JSON.parse(userData));
       }
     })();
-  }, []);
+  }, [userData]);
+
+  const [image, setImage] = useState(null);
+  const updateProfile = async ({ image, imgName }) => {
+    const asyncToken = await AsyncStorage.getItem("user_token");
+    setLoading(true);
+
+    await axios
+      .put(
+        `${BACKEND_URL}/accounts/profile/update/`,
+        //formData,
+        { photo: image },
+        {
+          headers: {
+            Authorization: `Bearer ${asyncToken}`,
+            Accept: "application/json",
+            //"Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then(async (res) => {
+        setLoading(false);
+        setToastValues({
+          ...toastValues,
+          show: true,
+          type: "Success",
+          message: "Your profile Picture has been updated successfully.",
+        });
+        console.log("ttt", res.data);
+        await AsyncStorage.setItem("user_data", JSON.stringify(res.data));
+        setUserData(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setLoading(false);
+      });
+  };
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+      base64: true,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.assets[0].uri);
+      console.log("kmj", result.assets[0].uri);
+      updateProfile({
+        image: result.assets[0].base64,
+        imgName: result.assets[0].fileName,
+      });
+      //setBase64(base64);
+    }
+  };
 
   return (
     <SafeAreaComponent>
@@ -67,19 +128,23 @@ const Profile = ({ navigation }) => {
               position: "relative",
             }}
           >
-            {/* <Image
-              source={require("../../../assets/images/userImg.png")}
-              resizeMode="contain"
+            <Image
+              source={
+                userData?.photo
+                  ? { uri: userData?.photo }
+                  : require("../../../assets/images/userImg.png")
+              }
+              resizeMode="cover"
+              resizeMethod="resize"
               style={{
                 height: "100%",
                 width: "100%",
+                borderRadius: 100,
               }}
-            /> */}
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <UserSquare color={COLORS.icons} size={100} />
-            </View>
-            {/* <TouchableOpacity
-              onPress={() => {}}
+            />
+
+            <TouchableOpacity
+              onPress={pickImage}
               style={{
                 height: 28,
                 width: 28,
@@ -96,9 +161,21 @@ const Profile = ({ navigation }) => {
                   width: 28,
                 }}
               />
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
         </View>
+
+        {loading === true && (
+          <View
+            style={{
+              width: "100%",
+              height: 40,
+              //marginVertical: 20,
+            }}
+          >
+            <ActivityIndicator />
+          </View>
+        )}
 
         {/* BUTTON */}
         <View

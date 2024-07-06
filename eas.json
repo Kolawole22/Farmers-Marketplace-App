@@ -32,11 +32,13 @@
       "env": {
         "EXPO_PUBLIC_BACKEND_URL": "https://urchin-app-a479b.ondigitalocean.app",
         "EXPO_PUBLIC_GOOGLE_MAP_API_KEY": "AIzaSyANCbsggZC6g1xw32-x4jRCb4RmCG3n5M0"
-      }
+      },
+      "autoIncrement": true
     }
   },
   "submit": {
     "production": {
+      
     }
   }
 }

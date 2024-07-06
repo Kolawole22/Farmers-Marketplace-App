@@ -24,6 +24,7 @@ const Signin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const {
     setIsAuhtenticated,
+    setIsNewUser,
     setToastValues,
     toastValues,
     saveUserData,
@@ -57,13 +58,14 @@ const Signin = ({ navigation }) => {
     } else {
       console.log("login credentials:::", data);
       axios
-        .post(`${BACKEND_URL}/accounts/login/`, data)
+        .post(`${BACKEND_URL}/accounts/login/`, data, { timeout: 5000 })
         .then((res) => {
           console.log("login response:::", res.data);
           setLoading(false);
           saveUserData(res.data.user);
           saveUserToken(res.data.token);
           setIsAuhtenticated(true);
+          setIsNewUser(false);
           AsyncStorage.setItem("user_type", userType);
         })
         .catch((err) => {
@@ -124,7 +126,6 @@ const Signin = ({ navigation }) => {
                 value={phone}
                 onChangeText={(text) => setPhone(text)}
               />
-
               <View style={{ marginVertical: 24 }}>
                 <PasswordInput
                   placeholder="Password"
@@ -135,7 +136,6 @@ const Signin = ({ navigation }) => {
                   onChangeText={(text) => setPassword(text)}
                 />
               </View>
-
               {loading === true ? (
                 <View
                   style={{
@@ -158,7 +158,6 @@ const Signin = ({ navigation }) => {
                   <Text style={styles.buttonText}>Log In</Text>
                 </TouchableOpacity>
               )}
-
               {/* <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("ResetPassword");
@@ -178,7 +177,6 @@ const Signin = ({ navigation }) => {
                   Forgot Password
                 </Text>
               </TouchableOpacity> */}
-
               <View style={styles.signInOptions}>
                 <Text
                   style={{
@@ -197,6 +195,12 @@ const Signin = ({ navigation }) => {
                   </Text>
                 </Text>
               </View>
+              <TouchableOpacity
+                style={styles.signInOptions}
+                onPress={() => navigation.push("ResetPassword")}
+              >
+                <Text style={{ color: COLORS.primary1 }}>Forgot Password?</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>
@@ -285,7 +289,7 @@ const styles = StyleSheet.create({
     gap: 30,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20
+    marginTop: 20,
   },
   signInOptionsImage: {
     width: 30,

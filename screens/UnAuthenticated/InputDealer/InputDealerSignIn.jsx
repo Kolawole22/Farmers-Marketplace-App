@@ -197,6 +197,12 @@ const InputDealerSignIn = ({ navigation }) => {
                 </Text>
               </View>
             </View>
+            <TouchableOpacity
+              style={styles.signInOptions}
+              onPress={() => navigation.push("ResetPassword")}
+            >
+              <Text style={{ color: COLORS.primary1 }}>Forgot Password?</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
@@ -284,7 +290,7 @@ const styles = StyleSheet.create({
     gap: 30,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20
+    marginTop: 20,
   },
   signInOptionsImage: {
     width: 30,

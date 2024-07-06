@@ -39,6 +39,7 @@ const Signup = ({ navigation }) => {
     useContext(GlobalContext);
   const [formReady, setFormReady] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
+  //console.log("kk", GOOGLE_MAP_APIKEY);
 
   const getCurrentLocation = async () => {
     setLocationLoading(true);
@@ -57,7 +58,7 @@ const Signup = ({ navigation }) => {
       .then((response) => response.json())
       .then((data) => {
         // Extract the address from the response
-        const address = data.results[0].formatted_address;
+        const address = data.results[0]?.formatted_address;
         console.log("Address:", address);
         setValues({ ...values, farm_address: address });
         setLocationLoading(false);
@@ -191,9 +192,7 @@ const Signup = ({ navigation }) => {
           {/* HEADER TXT */}
           <Text style={styles.headTxt}>Register</Text>
           <Text style={styles.stepTxt}>Step 1/4</Text>
-          <Text style={styles.parag}>
-            Create an account as a Farmer
-          </Text>
+          <Text style={styles.parag}>Create an account as a Farmer</Text>
           <Text>OR</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate("Signin")}

@@ -195,7 +195,7 @@ const SalesDetails = ({ data, navigation, route }) => {
           >
             <Image
               source={{
-                uri: images[currentIndex].image,
+                uri: images[currentIndex]?.image,
               }}
               style={{
                 width: "100%",

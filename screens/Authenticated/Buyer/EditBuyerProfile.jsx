@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { COLORS } from "../../../components/constants";
 import { ArrowDown2, ArrowLeft, CloseCircle } from "iconsax-react-native";
 import Input, {
@@ -22,10 +22,15 @@ import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import Loader from "../../../components/Loader";
 import { Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BACKEND_URL } from "../../../config.service";
+import { GlobalContext } from "../../../context/context.service";
 
 const EditBuyerProfile = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState();
+  const [businessName, setBusinessName] = useState("");
+  const { setToastValues, toastValues, fetchSalesBuyer } =
+    useContext(GlobalContext);
 
   useEffect(() => {
     (async () => {
@@ -36,6 +41,38 @@ const EditBuyerProfile = ({ navigation }) => {
       }
     })();
   }, []);
+
+  const updateProfile = async () => {
+    const asyncToken = await AsyncStorage.getItem("user_token");
+    if (businessName.length < 2) {
+      setToastValues({
+        ...toastValues,
+        show: true,
+        type: "Failure",
+        message: "Your Business name is too short.",
+      });
+    }
+    axios
+      .patch(`${BACKEND_URL}/api/accounts/profile/update/`, data, {
+        headers: {
+          Authorization: `Bearer ${asyncToken}`,
+        },
+      })
+      .then((res) => {
+        setLoading(false);
+        setToastValues({
+          ...toastValues,
+          show: true,
+          type: "Success",
+          message: "Your profile has been updated successfully.",
+        });
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setLoading(false);
+      });
+  };
 
   return (
     <View style={styles.layout}>
@@ -122,6 +159,9 @@ const EditBuyerProfile = ({ navigation }) => {
             /> */}
           </View>
           {/* BUTTON COMPONENT */}
+          {/* <TouchableOpacity onPress={updateProfile}>
+            <Text>Update Profile</Text>
+          </TouchableOpacity> */}
         </ScrollView>
       </SafeAreaView>
     </View>

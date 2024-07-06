@@ -23,6 +23,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.farmersmarketplace.app",
+      "versionCode": 3,
       "permissions": [
         "CAMERA",
         "READ_EXTERNAL_STORAGE",

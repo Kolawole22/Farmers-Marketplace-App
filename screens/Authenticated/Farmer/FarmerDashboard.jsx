@@ -56,7 +56,7 @@ const FarmerDashboard = () => {
           backgroundColor: "#103B1D",
           paddingTop: 8,
           borderWidth: 0,
-          height: height * 0.1,
+          height: height * 0.07,
         },
         tabBarLabelStyle: { color: "#fff" },
         headerShown: false,

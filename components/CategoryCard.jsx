@@ -4,6 +4,7 @@ import { COLORS, SHADOWS } from "./constants";
 import { Edit, Location } from "iconsax-react-native";
 
 const CategoryCard = ({ data, navigation }) => {
+  //console.log("di", data);
   return (
     <TouchableOpacity
       onPress={() =>
@@ -48,7 +49,7 @@ const CategoryCard = ({ data, navigation }) => {
         }}
       >
         <Image
-          source={{ uri: data?.images[0].image }}
+          source={{ uri: data?.images[0]?.image }}
           style={{
             width: "100%",
             height: "100%",

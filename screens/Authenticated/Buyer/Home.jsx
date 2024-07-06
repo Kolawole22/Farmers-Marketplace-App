@@ -88,7 +88,7 @@ const Home = ({ navigation }) => {
         <View style={styles.topLeft}>
           <Text style={styles.life}>FARMERS MARKETPLACE APP</Text>
           <Text style={styles.introText}>
-            For your benefit,{""}
+            For your benefit,{" "}
             <Text style={{ color: COLORS.accent3, fontFamily: "montEBold" }}>
               {userData?.first_name}{" "}
             </Text>

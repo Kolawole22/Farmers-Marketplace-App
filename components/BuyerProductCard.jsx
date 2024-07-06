@@ -62,7 +62,7 @@ const BuyerProductCard = ({ product, navigation, id }) => {
         }}
       >
         <Image
-          source={{ uri: data?.images[0].image }}
+          source={{ uri: data?.images[0]?.image }}
           style={{
             width: "100%",
             height: "100%",
